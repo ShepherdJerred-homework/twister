@@ -14,11 +14,11 @@ import java.util.List;
 
 public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Twist> mValues;
+    private final List<Twist> mTwists;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTwistRecyclerViewAdapter(List<Twist> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyTwistRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener) {
+        mTwists = twists;
         mListener = listener;
     }
 
@@ -31,16 +31,14 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
-        holder.mContentView.setText(mValues.get(position).getMessage());
+        holder.mItem = mTwists.get(position);
+        holder.mIdView.setText(mTwists.get(position).getMessage());
+        holder.mContentView.setText(mTwists.get(position).getMessage());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
@@ -49,7 +47,7 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mTwists.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

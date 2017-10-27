@@ -11,36 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shepherdjerred.twister.R;
-import com.shepherdjerred.twister.api.TwisterApi;
 import com.shepherdjerred.twister.object.Twist;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+import java.util.ArrayList;
+
 public class TwistFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+    private static final String BUNDLE_ARG_COLUMN_COUNT = "column-count";
+    private static final String BUNDLE_ARG_TWIST_ARRAY = "twists";
     private int mColumnCount = 1;
+    private ArrayList<Twist> mTwists;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public TwistFragment() {
+        mTwists = new ArrayList<>();
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static TwistFragment newInstance(int columnCount) {
+    public static TwistFragment newInstance(ArrayList<Twist> twists, int columnCount) {
         TwistFragment fragment = new TwistFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putInt(BUNDLE_ARG_COLUMN_COUNT, columnCount);
+        args.putParcelableArrayList(BUNDLE_ARG_TWIST_ARRAY, twists);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +41,8 @@ public class TwistFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            mColumnCount = getArguments().getInt(BUNDLE_ARG_COLUMN_COUNT);
+            mTwists = getArguments().getParcelableArrayList(BUNDLE_ARG_TWIST_ARRAY);
         }
     }
 
@@ -68,7 +60,8 @@ public class TwistFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyTwistRecyclerViewAdapter(new TwisterApi(context).getTwists(), mListener));
+
+            recyclerView.setAdapter(new MyTwistRecyclerViewAdapter(mTwists, mListener));
         }
         return view;
     }
@@ -91,18 +84,7 @@ public class TwistFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Twist item);
+        void onListFragmentInteraction(Twist twist);
     }
 }

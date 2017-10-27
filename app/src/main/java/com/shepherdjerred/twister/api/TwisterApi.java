@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TwisterApi {
@@ -36,8 +35,8 @@ public class TwisterApi {
     }
 
     // https://developer.android.com/training/volley/request.html
-    public List<Twist> getTwists() {
-        final List<Twist> twists = new ArrayList<>();
+    public ArrayList<Twist> getTwists() {
+        final ArrayList<Twist> twists = new ArrayList<>();
 
         String url = "http://jsonstub.com/twist/";
 
@@ -56,6 +55,7 @@ public class TwisterApi {
                                 Date twistTimestamp = JSON_DATE_FORMAT.parse(twistTimestampString);
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
+                                Log.d("REQUEST", twists.toString());
                             }
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
