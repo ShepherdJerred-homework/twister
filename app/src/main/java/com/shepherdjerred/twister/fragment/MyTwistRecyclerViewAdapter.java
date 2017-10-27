@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shepherdjerred.twister.R;
@@ -32,8 +33,11 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mTwists.get(position);
-        holder.mIdView.setText(mTwists.get(position).getMessage());
-        holder.mContentView.setText(mTwists.get(position).getMessage());
+        // TODO set avatar
+        //holder.mAvatarView.setImageURI();
+        holder.mUsernameView.setText(mTwists.get(position).getUsername());
+        holder.mMessageView.setText(mTwists.get(position).getMessage());
+        holder.mTimestampView.setText(mTwists.get(position).getTimestamp().toString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,20 +56,19 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final ImageView mAvatarView;
+        public final TextView mUsernameView;
+        public final TextView mMessageView;
+        public final TextView mTimestampView;
         public Twist mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
-            mContentView = view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            mAvatarView = view.findViewById(R.id.avatar);
+            mUsernameView = view.findViewById(R.id.username);
+            mMessageView = view.findViewById(R.id.message);
+            mTimestampView = view.findViewById(R.id.timestamp);
         }
     }
 }

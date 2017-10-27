@@ -35,15 +35,14 @@ public class TwisterApi {
     }
 
     // https://developer.android.com/training/volley/request.html
-    public ArrayList<Twist> getTwists() {
-        final ArrayList<Twist> twists = new ArrayList<>();
-
+    public void getTwists(final onTwistLoad onTwistLoad) {
         String url = "http://jsonstub.com/twist/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
+                        ArrayList<Twist> twists = new ArrayList<>();
                         try {
                             JSONArray twistJsonArray = jsonObject.getJSONArray("twists");
                             for (int i = 0; i < twistJsonArray.length(); i++) {
@@ -55,11 +54,11 @@ public class TwisterApi {
                                 Date twistTimestamp = JSON_DATE_FORMAT.parse(twistTimestampString);
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
-                                Log.d("REQUEST", twists.toString());
                             }
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
                         }
+                        onTwistLoad.run(twists);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -79,7 +78,10 @@ public class TwisterApi {
         };
 
         requestQueue.add(request);
-        return twists;
+    }
+
+    public interface onTwistLoad {
+        void run(ArrayList<Twist> twists);
     }
 
     public User getUser(String username) {

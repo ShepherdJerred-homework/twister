@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class TwistFragment extends Fragment {
     }
 
     public static TwistFragment newInstance(ArrayList<Twist> twists, int columnCount) {
+        Log.d("Instance", twists.toString());
         TwistFragment fragment = new TwistFragment();
         Bundle args = new Bundle();
         args.putInt(BUNDLE_ARG_COLUMN_COUNT, columnCount);
@@ -43,6 +45,9 @@ public class TwistFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(BUNDLE_ARG_COLUMN_COUNT);
             mTwists = getArguments().getParcelableArrayList(BUNDLE_ARG_TWIST_ARRAY);
+            Log.d("OnCreate", mTwists.toString());
+        } else {
+            Log.d("OnCreate", "Empty");
         }
     }
 
