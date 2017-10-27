@@ -8,7 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shepherdjerred.twister.object.Twist;
 import com.shepherdjerred.twister.object.User;
@@ -41,31 +41,32 @@ public class TwisterApi {
 
         String url = "http://jsonstub.com/twist/";
 
-        JsonArrayRequest request = new JsonArrayRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                int twistId = jsonObject.getInt("id");
-                                String twistUsername = jsonObject.getString("username");
-                                String twistMessage = jsonObject.getString("message");
-                                String twistTimestampString = jsonObject.getString("timestamp");
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            JSONArray twistJsonArray = jsonObject.getJSONArray("twists");
+                            for (int i = 0; i < twistJsonArray.length(); i++) {
+                                JSONObject twistJsonObject = twistJsonArray.getJSONObject(i);
+                                int twistId = twistJsonObject.getInt("id");
+                                String twistUsername = twistJsonObject.getString("username");
+                                String twistMessage = twistJsonObject.getString("message");
+                                String twistTimestampString = twistJsonObject.getString("timestamp");
                                 Date twistTimestamp = JSON_DATE_FORMAT.parse(twistTimestampString);
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
-                            } catch (JSONException | ParseException e) {
-                                e.printStackTrace();
                             }
+                        } catch (JSONException | ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Volley", error.getMessage());
-                    }
-                }) {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Volley", error.getMessage());
+            }
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -82,6 +83,39 @@ public class TwisterApi {
     }
 
     public User getUser(String username) {
-        return null;
+        final User[] user = {null};
+
+        String url = "http://jsonstub.com/user/ + username";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            String username = jsonObject.getString("username");
+                            String about = jsonObject.getString("about");
+                            user[0] = new User(username, about);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Volley", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("JsonStub-User-Key", "edbc267a-f880-4dec-8dec-727cccc27e5d");
+                params.put("JsonStub-Project-Key", "40e26003-fc1b-40f3-9ae4-bfab71e6d186");
+
+                return params;
+            }
+        };
+
+        return user[0];
     }
 }

@@ -30,4 +30,14 @@ public class Twist {
     public Date getTimestamp() {
         return timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "Twist{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", message='" + message + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
