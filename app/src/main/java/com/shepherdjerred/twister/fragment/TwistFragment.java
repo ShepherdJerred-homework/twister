@@ -90,6 +90,6 @@ public class TwistFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Twist twist);
+        void onListFragmentClick(Twist twist);
     }
 }

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
+// http://www.parcelabler.com/
 public class Twist implements Parcelable {
     private int id;
     private String username;

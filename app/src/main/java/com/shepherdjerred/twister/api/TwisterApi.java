@@ -55,10 +55,10 @@ public class TwisterApi {
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
                             }
+                            onTwistLoad.run(twists);
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
                         }
-                        onTwistLoad.run(twists);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -84,10 +84,8 @@ public class TwisterApi {
         void run(ArrayList<Twist> twists);
     }
 
-    public User getUser(String username) {
-        final User[] user = {null};
-
-        String url = "http://jsonstub.com/user/ + username";
+    public void getUser(String username, final onUserLoad onUserLoad) {
+        String url = "http://jsonstub.com/user/" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -96,7 +94,8 @@ public class TwisterApi {
                         try {
                             String username = jsonObject.getString("username");
                             String about = jsonObject.getString("about");
-                            user[0] = new User(username, about);
+                            User user = new User(username, about);
+                            onUserLoad.run(user);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -118,6 +117,10 @@ public class TwisterApi {
             }
         };
 
-        return user[0];
+        requestQueue.add(request);
+    }
+
+    public interface onUserLoad {
+        void run(User user);
     }
 }

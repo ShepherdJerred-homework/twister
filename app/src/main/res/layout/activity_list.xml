@@ -7,7 +7,7 @@
     tools:context="com.shepherdjerred.twister.activity.ListActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/fragment_twist_container"
+        android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

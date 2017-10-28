@@ -43,7 +43,7 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentClick(holder.mItem);
                 }
             }
         });

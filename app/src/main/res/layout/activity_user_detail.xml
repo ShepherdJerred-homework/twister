@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shepherdjerred.twister.activity.UserDetailActivity">
+    tools:context="com.shepherdjerred.twister.activity.UserDetailsActivity">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/user_details_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
