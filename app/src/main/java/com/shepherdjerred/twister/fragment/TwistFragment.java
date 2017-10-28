@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.object.Twist;
 
@@ -66,7 +67,7 @@ public class TwistFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            recyclerView.setAdapter(new MyTwistRecyclerViewAdapter(mTwists, mListener));
+            recyclerView.setAdapter(new MyTwistRecyclerViewAdapter(mTwists, mListener, Glide.with(this)));
         }
         return view;
     }

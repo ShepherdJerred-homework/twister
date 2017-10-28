@@ -7,20 +7,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.RequestManager;
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.fragment.TwistFragment.OnListFragmentInteractionListener;
 import com.shepherdjerred.twister.object.Twist;
 
 import java.util.List;
 
+// https://stackoverflow.com/questions/31964737/glide-image-loading-with-application-context/32887693#32887693
 public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecyclerViewAdapter.ViewHolder> {
 
+    private final RequestManager glide;
     private final List<Twist> mTwists;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTwistRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener) {
+    public MyTwistRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener, RequestManager glide) {
         mTwists = twists;
         mListener = listener;
+        this.glide = glide;
     }
 
     @Override
@@ -33,8 +37,8 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mTwists.get(position);
-        // TODO set avatar
-        //holder.mAvatarView.setImageURI();
+        String avatarUrl = "http://cs.harding.edu/fmccown/twister/images/" + mTwists.get(position).getUsername() + ".jpg";
+        glide.load(avatarUrl).into(holder.mAvatarView);
         holder.mUsernameView.setText(mTwists.get(position).getUsername());
         holder.mMessageView.setText(mTwists.get(position).getMessage());
         holder.mTimestampView.setText(mTwists.get(position).getTimestamp().toString());

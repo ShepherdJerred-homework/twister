@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.object.User;
 
@@ -49,8 +50,8 @@ public class UserDetailsFragment extends Fragment {
         final TextView usernameView = view.findViewById(R.id.username);
         final TextView aboutView = view.findViewById(R.id.about);
 
-        // TODO set avatar
-        //holder.avatarView.setImageURI();
+        String avatarUrl = "http://cs.harding.edu/fmccown/twister/images/" + mUser.getUsername() + ".jpg";
+        Glide.with(this).load(avatarUrl).into(avatarView);
         usernameView.setText(mUser.getUsername());
         aboutView.setText(mUser.getAbout());
 
