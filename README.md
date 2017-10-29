@@ -18,10 +18,9 @@ Noah Kinslow (50%)
       more than 150 characters
     * Posting returns it to list activity
     * Add twist to SQLite DB
-* Database/cache
-    * TwisterDatabase, TwisterDatabaseHelper
 * Link clicking in Twists (Extra credit)
 * Regex highlighting for Twist search (Extra credit)
+* Landscape support (Extra credit)
 
 Jerred Shepherd (50%)
 * App icon
@@ -39,5 +38,6 @@ Jerred Shepherd (50%)
 * User Details activity
     * DetailActivity, DetailFragment
     * Recycler view
-* Landscape support (Extra credit)
+* Database/cache
+    * TwisterDatabase, TwisterDatabaseHelper
 * Image caching (Extra credit)
