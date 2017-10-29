@@ -1,6 +1,7 @@
 package com.shepherdjerred.twister.fragment;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecy
         glide.load(avatarUrl).into(holder.mAvatarView);
         holder.mUsernameView.setText(mTwists.get(position).getUsername());
         holder.mMessageView.setText(mTwists.get(position).getMessage());
-        holder.mTimestampView.setText(mTwists.get(position).getTimestamp().toString());
+        holder.mTimestampView.setText(DateUtils.getRelativeTimeSpanString(mTwists.get(position).getTimestamp().getTime()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
