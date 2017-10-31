@@ -2,7 +2,12 @@ package com.shepherdjerred.twister.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.api.TwisterApi;
@@ -16,7 +21,10 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_twist_list);
+
+        Toolbar myToolbar = findViewById(R.id.appbar);
+        setSupportActionBar(myToolbar);
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -42,6 +50,49 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
                 }
             });
 
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.twist_list, menu);
+        return true;
+    }
+
+    // https://developer.android.com/training/appbar/actions.html
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_twist:
+                Intent addTwistIntent = new Intent(this, AddTwistActivity.class);
+                startActivity(addTwistIntent);
+                return true;
+
+            case R.id.search:
+                // TODO
+                return true;
+
+            case R.id.logout:
+                // TODO reset login preference
+                Intent loginIntent = new Intent(this, LoginActivity.class);
+                startActivity(loginIntent);
+                return true;
+
+            // https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog
+            case R.id.about:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("App by Jerred Shepherd")
+                        .setTitle("About Twister");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
 
         }
     }

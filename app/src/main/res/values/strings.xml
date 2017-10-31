@@ -6,4 +6,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="add_twist">Add Twist</string>
+    <string name="search">Search</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
 </resources>
