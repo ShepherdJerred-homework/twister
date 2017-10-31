@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.shepherdjerred.twister.activity.AddTwistActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/add_twist_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.constraint.ConstraintLayout>
+    <fragment
+        android:id="@+id/add_twist_fragment"
+        android:name="com.shepherdjerred.twister.fragment.AddTwistFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>
