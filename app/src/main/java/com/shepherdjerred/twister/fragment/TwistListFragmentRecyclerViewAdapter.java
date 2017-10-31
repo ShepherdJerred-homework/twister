@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.shepherdjerred.twister.R;
-import com.shepherdjerred.twister.fragment.TwistFragment.OnListFragmentInteractionListener;
+import com.shepherdjerred.twister.fragment.TwistListFragment.OnListFragmentInteractionListener;
 import com.shepherdjerred.twister.object.Twist;
 
 import java.util.List;
 
 // https://stackoverflow.com/questions/31964737/glide-image-loading-with-application-context/32887693#32887693
-public class MyTwistRecyclerViewAdapter extends RecyclerView.Adapter<MyTwistRecyclerViewAdapter.ViewHolder> {
+public class TwistListFragmentRecyclerViewAdapter extends RecyclerView.Adapter<TwistListFragmentRecyclerViewAdapter.ViewHolder> {
 
     private final RequestManager glide;
     private final List<Twist> mTwists;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTwistRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener, RequestManager glide) {
+    public TwistListFragmentRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener, RequestManager glide) {
         mTwists = twists;
         mListener = listener;
         this.glide = glide;

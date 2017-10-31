@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.fragment.LoginFragment;
+import com.shepherdjerred.twister.object.User;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener {
 
@@ -16,8 +17,9 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
     }
 
     @Override
-    public void OnLoginButtonClick(String username) {
-        Intent intent = new Intent(this, ListActivity.class);
+    public void OnLogin(User user) {
+        Intent intent = new Intent(this, TwistListActivity.class);
         startActivity(intent);
+        finish();
     }
 }

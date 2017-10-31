@@ -42,7 +42,7 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
             final TwisterApi twisterApi = new TwisterApi(getApplicationContext());
             twisterApi.getUser(twist.getUsername(), new TwisterApi.onUserLoad() {
                 @Override
-                public void run(User user) {
+                public void onSuccess(User user) {
                     Log.d("GetUser", user.toString());
                     // Create a new Fragment to be placed in the activity layout
                     UserDetailsFragment firstFragment = UserDetailsFragment.newInstance(user);
@@ -50,6 +50,11 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
                     // Add the fragment to the 'fragment_container' FrameLayout
                     getSupportFragmentManager().beginTransaction()
                             .add(R.id.user_details_fragment_container, firstFragment).commit();
+                }
+
+                @Override
+                public void onError(String error) {
+
                 }
             });
 

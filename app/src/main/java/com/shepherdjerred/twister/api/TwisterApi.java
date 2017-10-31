@@ -63,7 +63,7 @@ public class TwisterApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Volley", error.getMessage());
+                Log.d("Volley", error.toString());
             }
         }) {
             @Override
@@ -95,7 +95,7 @@ public class TwisterApi {
                             String username = jsonObject.getString("username");
                             String about = jsonObject.getString("about");
                             User user = new User(username, about);
-                            onUserLoad.run(user);
+                            onUserLoad.onSuccess(user);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -103,7 +103,18 @@ public class TwisterApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Volley", error.getMessage());
+                String errorMessage;
+                if (error.networkResponse == null) {
+                    errorMessage = "No network connection";
+                } else {
+                    int statusCode = error.networkResponse.statusCode;
+                    if (statusCode == 400) {
+                        errorMessage = "This user doesn't exist";
+                    } else {
+                        errorMessage = String.valueOf(error.networkResponse.statusCode);
+                    }
+                }
+                onUserLoad.onError(errorMessage);
             }
         }) {
             @Override
@@ -121,6 +132,8 @@ public class TwisterApi {
     }
 
     public interface onUserLoad {
-        void run(User user);
+        void onSuccess(User user);
+
+        void onError(String error);
     }
 }

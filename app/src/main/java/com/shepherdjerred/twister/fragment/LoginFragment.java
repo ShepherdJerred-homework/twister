@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.shepherdjerred.twister.R;
+import com.shepherdjerred.twister.api.TwisterApi;
+import com.shepherdjerred.twister.object.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,17 +57,30 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         final TextInputEditText usernameText = view.findViewById(R.id.username_text);
         Button button = view.findViewById(R.id.login_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String username = usernameText.getText().toString();
-
+            public void onClick(final View buttonView) {
                 if (mListener != null) {
-                    mListener.OnLoginButtonClick(username);
+                    String username = usernameText.getText().toString();
+                    TwisterApi twisterApi = new TwisterApi(getContext());
+
+                    twisterApi.getUser(username, new TwisterApi.onUserLoad() {
+                        @Override
+                        public void onSuccess(User user) {
+                            if (user != null) {
+                                mListener.OnLogin(user);
+                            }
+                        }
+                        @Override
+                        public void onError(String error) {
+                            TextView textView = view.findViewById(R.id.error);
+                            textView.setText(error);
+                        }
+                    });
                 }
             }
         });
@@ -90,6 +106,6 @@ public class LoginFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void OnLoginButtonClick(String username);
+        void OnLogin(User user);
     }
 }

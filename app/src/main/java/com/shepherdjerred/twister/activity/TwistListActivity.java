@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.api.TwisterApi;
-import com.shepherdjerred.twister.fragment.TwistFragment;
+import com.shepherdjerred.twister.fragment.TwistListFragment;
 import com.shepherdjerred.twister.object.Twist;
 
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity implements TwistFragment.OnListFragmentInteractionListener {
+public class TwistListActivity extends AppCompatActivity implements TwistListFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity implements TwistFragment.OnL
                 @Override
                 public void run(ArrayList<Twist> twists) {
                     // Create a new Fragment to be placed in the activity layout
-                    TwistFragment firstFragment = TwistFragment.newInstance(twists, 1);
+                    TwistListFragment firstFragment = TwistListFragment.newInstance(twists, 1);
 
                     // Add the fragment to the 'fragment_container' FrameLayout
                     getSupportFragmentManager().beginTransaction()

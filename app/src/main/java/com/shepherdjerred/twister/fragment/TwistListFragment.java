@@ -17,7 +17,7 @@ import com.shepherdjerred.twister.object.Twist;
 
 import java.util.ArrayList;
 
-public class TwistFragment extends Fragment {
+public class TwistListFragment extends Fragment {
 
     private static final String BUNDLE_ARG_COLUMN_COUNT = "column-count";
     private static final String BUNDLE_ARG_TWIST_ARRAY = "twists";
@@ -25,13 +25,13 @@ public class TwistFragment extends Fragment {
     private ArrayList<Twist> mTwists;
     private OnListFragmentInteractionListener mListener;
 
-    public TwistFragment() {
+    public TwistListFragment() {
         mTwists = new ArrayList<>();
     }
 
-    public static TwistFragment newInstance(ArrayList<Twist> twists, int columnCount) {
+    public static TwistListFragment newInstance(ArrayList<Twist> twists, int columnCount) {
         Log.d("Instance", twists.toString());
-        TwistFragment fragment = new TwistFragment();
+        TwistListFragment fragment = new TwistListFragment();
         Bundle args = new Bundle();
         args.putInt(BUNDLE_ARG_COLUMN_COUNT, columnCount);
         args.putParcelableArrayList(BUNDLE_ARG_TWIST_ARRAY, twists);
@@ -67,7 +67,7 @@ public class TwistFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            recyclerView.setAdapter(new MyTwistRecyclerViewAdapter(mTwists, mListener, Glide.with(this)));
+            recyclerView.setAdapter(new TwistListFragmentRecyclerViewAdapter(mTwists, mListener, Glide.with(this)));
         }
         return view;
     }

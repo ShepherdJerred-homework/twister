@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.shepherdjerred.twister.fragment.TwistFragment"
+    tools:context="com.shepherdjerred.twister.fragment.TwistListFragment"
     tools:listitem="@layout/fragment_twist" />
