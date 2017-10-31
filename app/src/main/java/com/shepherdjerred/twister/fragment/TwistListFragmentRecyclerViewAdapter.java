@@ -13,6 +13,7 @@ import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.fragment.TwistListFragment.OnListFragmentInteractionListener;
 import com.shepherdjerred.twister.object.Twist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // https://stackoverflow.com/questions/31964737/glide-image-loading-with-application-context/32887693#32887693
@@ -20,10 +21,13 @@ public class TwistListFragmentRecyclerViewAdapter extends RecyclerView.Adapter<T
 
     private final RequestManager glide;
     private final List<Twist> mTwists;
+    private final List<Twist> mTwistsCopy;
     private final OnListFragmentInteractionListener mListener;
 
     public TwistListFragmentRecyclerViewAdapter(List<Twist> twists, OnListFragmentInteractionListener listener, RequestManager glide) {
         mTwists = twists;
+        mTwistsCopy = new ArrayList<>();
+        mTwistsCopy.addAll(mTwists);
         mListener = listener;
         this.glide = glide;
     }

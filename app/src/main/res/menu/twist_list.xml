@@ -5,13 +5,12 @@
     <item
         android:id="@+id/add_twist"
         android:title="@string/add_twist"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="collapseActionView|ifRoom" />
+    <item android:id="@+id/search"
         android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/logout"
         android:title="@string/logout" />

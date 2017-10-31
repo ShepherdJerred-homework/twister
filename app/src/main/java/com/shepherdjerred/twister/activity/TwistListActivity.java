@@ -58,6 +58,24 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.twist_list, menu);
+
+//        final MenuItem searchItem = menu.findItem(R.id.search);
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // TODO search database
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // TODO search database
+//                return true;
+//            }
+//        });
+
         return true;
     }
 
@@ -68,10 +86,6 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
             case R.id.add_twist:
                 Intent addTwistIntent = new Intent(this, AddTwistActivity.class);
                 startActivity(addTwistIntent);
-                return true;
-
-            case R.id.search:
-                // TODO
                 return true;
 
             case R.id.logout:
