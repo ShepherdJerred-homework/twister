@@ -59,13 +59,31 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        final TextInputEditText usernameText = view.findViewById(R.id.username_text);
+        final TextView errorTextView = view.findViewById(R.id.error);
+
         Button button = view.findViewById(R.id.login_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View buttonView) {
+
+                TextInputEditText usernameText = view.findViewById(R.id.username_text);
+                TextInputEditText passwordText = view.findViewById(R.id.password_text);
+                String username = usernameText.getText().toString();
+                String password = passwordText.getText().toString();
+
+                if (username.equals("")) {
+                    usernameText.setError("Please enter a username");
+                    return;
+                }
+                usernameText.setError(null);
+
+                if (password.equals("")) {
+                    passwordText.setError("Please enter your password");
+                    return;
+                }
+                passwordText.setError(null);
+
                 if (mListener != null) {
-                    String username = usernameText.getText().toString();
                     TwisterApi twisterApi = new TwisterApi(getContext());
 
                     twisterApi.getUser(username, new TwisterApi.onUserLoad() {
@@ -75,10 +93,10 @@ public class LoginFragment extends Fragment {
                                 mListener.OnLogin(user);
                             }
                         }
+
                         @Override
                         public void onError(String error) {
-                            TextView textView = view.findViewById(R.id.error);
-                            textView.setText(error);
+                            errorTextView.setText(error);
                         }
                     });
                 }
