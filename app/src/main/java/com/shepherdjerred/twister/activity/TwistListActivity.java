@@ -1,5 +1,6 @@
 package com.shepherdjerred.twister.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -90,24 +91,40 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
 
             case R.id.logout:
                 // TODO reset login preference
-                Intent loginIntent = new Intent(this, LoginActivity.class);
-                startActivity(loginIntent);
+                AlertDialog.Builder logoutBuilder = new AlertDialog.Builder(this);
+                logoutBuilder.setMessage("Are you sure you want to logout?")
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(loginIntent);
+                                finish();
+                            }
+                        })
+                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Do nothing
+                            }
+                        })
+                        .setTitle("Logout?");
+                AlertDialog logoutDialog = logoutBuilder.create();
+                logoutDialog.show();
                 return true;
 
             // https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog
             case R.id.about:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("App by Jerred Shepherd")
+                AlertDialog.Builder aboutBuilder = new AlertDialog.Builder(this);
+                aboutBuilder.setMessage("App by Jerred Shepherd")
                         .setTitle("About Twister");
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                AlertDialog aboutDialog = aboutBuilder.create();
+                aboutDialog.show();
                 return true;
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 

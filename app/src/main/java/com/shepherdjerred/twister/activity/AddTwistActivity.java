@@ -16,9 +16,10 @@ public class AddTwistActivity extends AppCompatActivity implements AddTwistFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_twist);
 
-        Toolbar myToolbar = findViewById(R.id.appbar_add_twist);
+        Toolbar myToolbar = findViewById(R.id.appbar_user_detail);
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
+
         actionBar.setTitle("Add Twist");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

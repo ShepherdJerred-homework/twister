@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.shepherdjerred.twister.activity.UserDetailsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/appbar_user_detail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/user_details_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar_user_detail">
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -3,7 +3,9 @@ package com.shepherdjerred.twister.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.shepherdjerred.twister.R;
@@ -27,6 +29,13 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
         } else {
             throw new RuntimeException("No twist extra");
         }
+
+        Toolbar myToolbar = findViewById(R.id.appbar_user_detail);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle(twist.getUsername());
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
