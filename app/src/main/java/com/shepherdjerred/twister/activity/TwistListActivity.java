@@ -23,7 +23,7 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twist_list);
 
-        Toolbar myToolbar = findViewById(R.id.appbar);
+        Toolbar myToolbar = findViewById(R.id.appbar_twist_list);
         setSupportActionBar(myToolbar);
 
         // Check that the activity is using the layout version with

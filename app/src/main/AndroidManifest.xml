@@ -22,7 +22,13 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activity.AddTwistActivity" />
+        <activity
+            android:name=".activity.AddTwistActivity"
+            android:parentActivityName="com.shepherdjerred.twister.activity.TwistListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shepherdjerred.twister.activity.TwistListActivity" />
+        </activity>
         <activity android:name=".activity.UserDetailsActivity" />
     </application>
 
