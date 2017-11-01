@@ -32,8 +32,9 @@ public class TwisterDatabase {
 
         String table = "twist";
         String[] columnsToReturn = {"id", "username", "message", "timestamp"};
+        String orderBy = "timestamp DESC";
 
-        Cursor cursor = database.query(table, columnsToReturn, null, null, null, null, null);
+        Cursor cursor = database.query(table, columnsToReturn, null, null, null, null, orderBy);
 
         ArrayList<Twist> twists = new ArrayList<>();
         while (cursor.moveToNext()) {
@@ -54,7 +55,7 @@ public class TwisterDatabase {
         String[] columnsToReturn = {"id", "message", "timestamp"};
         String selection = "username = ?";
         String[] selectionArgs = {username};
-        String orderBy = "timestamp";
+        String orderBy = "timestamp DESC";
 
         Cursor cursor = database.query(table, columnsToReturn, selection, selectionArgs, null, null, orderBy);
 

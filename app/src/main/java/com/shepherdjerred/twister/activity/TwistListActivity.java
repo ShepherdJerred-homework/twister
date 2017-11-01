@@ -1,7 +1,9 @@
 package com.shepherdjerred.twister.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -95,7 +97,13 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
                         .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                // TODO reset login preference
+
+                                SharedPreferences sharedPreferences = getSharedPreferences(
+                                        "com.shepherdjerred.twister", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+                                sharedPreferencesEditor.remove("username");
+                                sharedPreferencesEditor.apply();
+
                                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(loginIntent);
                                 finish();
@@ -116,7 +124,13 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
             case R.id.about:
                 AlertDialog.Builder aboutBuilder = new AlertDialog.Builder(this);
                 aboutBuilder.setMessage("App by Jerred Shepherd")
-                        .setTitle("About Twister");
+                        .setTitle("About Twister")
+                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Do nothing
+                            }
+                        });
                 AlertDialog aboutDialog = aboutBuilder.create();
                 aboutDialog.show();
                 return true;

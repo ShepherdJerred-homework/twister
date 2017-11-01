@@ -1,7 +1,6 @@
 package com.shepherdjerred.twister.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +9,14 @@ import android.util.Log;
 
 import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.api.TwisterApi;
+import com.shepherdjerred.twister.fragment.TwistListFragment;
 import com.shepherdjerred.twister.fragment.UserDetailsFragment;
 import com.shepherdjerred.twister.object.Twist;
 import com.shepherdjerred.twister.object.User;
 
-public class UserDetailsActivity extends AppCompatActivity implements UserDetailsFragment.OnFragmentInteractionListener {
+import java.util.ArrayList;
+
+public class UserDetailsActivity extends AppCompatActivity implements TwistListFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.user_details_fragment_container) != null) {
+        if (findViewById(R.id.user_detail_fragment_container) != null) {
 
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
@@ -58,7 +60,7 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
 
                     // Add the fragment to the 'fragment_container' FrameLayout
                     getSupportFragmentManager().beginTransaction()
-                            .add(R.id.user_details_fragment_container, firstFragment).commit();
+                            .add(R.id.user_detail_fragment_container, firstFragment).commit();
                 }
 
                 @Override
@@ -67,11 +69,23 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
                 }
             });
 
+            twisterApi.getTwists(twist.getUsername(), new TwisterApi.onTwistRequestFinish() {
+                @Override
+                public void onSuccess(ArrayList<Twist> twists) {
+                    // Create a new Fragment to be placed in the activity layout
+                    TwistListFragment secondFragment = TwistListFragment.newInstance(twists, 1);
+
+                    // Add the fragment to the 'fragment_container' FrameLayout
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.user_detail_twist_fragment_container, secondFragment).commit();
+                }
+            });
+
         }
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onListFragmentClick(Twist twist) {
 
     }
 }
