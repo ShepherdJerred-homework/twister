@@ -90,12 +90,12 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
                 return true;
 
             case R.id.logout:
-                // TODO reset login preference
                 AlertDialog.Builder logoutBuilder = new AlertDialog.Builder(this);
                 logoutBuilder.setMessage("Are you sure you want to logout?")
                         .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                // TODO reset login preference
                                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(loginIntent);
                                 finish();
