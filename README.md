@@ -15,8 +15,6 @@ Android app similar to Twitter with a mock backend
     * Limit to 150 characters
     * Require one non-whitespace character
     * Add to database
-* User Details
-    * Show Twists for user
 
 ### Contributions
 Noah Kinslow (50%)
