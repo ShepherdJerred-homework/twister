@@ -9,12 +9,6 @@ Android app similar to Twitter with a mock backend
 
 ### Contributions
 Noah Kinslow (50%)
-* Add Twist
-    * AddTwistActivity, AddTwistFragment
-    * Disable posting if textbox doesn't have one non-whitespace character or
-      more than 150 characters
-    * Posting returns it to list activity
-    * Add twist to SQLite DB
 * Link clicking in Twists (Extra credit)
 * Regex highlighting for Twist search (Extra credit)
 * Landscape support (Extra credit)
@@ -22,6 +16,9 @@ Noah Kinslow (50%)
 Jerred Shepherd (50%)
 * App icon
 * DataFetcher
+* User login
+    * LoginActivity, LoginFragment
+    * Show error message if API returns error
 * Twist List
     * ListActivity, ListFragment
     * Recycler view
@@ -32,12 +29,15 @@ Jerred Shepherd (50%)
         * Search twists
         * Logout (overflow)
         * About (overflow)
+* Add Twist
+    * AddTwistActivity, AddTwistFragment
+    * Disable posting if textbox doesn't have one non-whitespace character or
+      more than 150 characters
+    * Posting returns it to list activity
+    * Add twist to SQLite DB
 * User Details activity
     * DetailActivity, DetailFragment
     * Recycler view
-* User login
-    * LoginActivity, LoginFragment
-    * Show error message if API returns error
 * Database/cache
     * TwisterDatabase, TwisterDatabaseHelper
 * Image caching (Extra credit)
