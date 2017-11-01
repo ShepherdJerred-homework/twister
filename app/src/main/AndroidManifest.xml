@@ -29,7 +29,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shepherdjerred.twister.activity.TwistListActivity" />
         </activity>
-        <activity android:name=".activity.UserDetailsActivity" />
+        <activity
+            android:name=".activity.UserDetailsActivity"
+            android:parentActivityName="com.shepherdjerred.twister.activity.TwistListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shepherdjerred.twister.activity.TwistListActivity" />
+        </activity>
     </application>
 
 </manifest>
