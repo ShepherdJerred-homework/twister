@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class TwisterApi {
 
-    private static final DateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    private static final DateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private RequestQueue requestQueue;
     private TwisterDatabase twisterDatabase;
 
