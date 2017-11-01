@@ -39,9 +39,9 @@ public class TwistListActivity extends AppCompatActivity implements TwistListFra
             }
 
             final TwisterApi twisterApi = new TwisterApi(getApplicationContext());
-            twisterApi.getTwists(new TwisterApi.onTwistLoad() {
+            twisterApi.getTwists(new TwisterApi.onTwistRequestFinish() {
                 @Override
-                public void run(ArrayList<Twist> twists) {
+                public void onSuccess(ArrayList<Twist> twists) {
                     // Create a new Fragment to be placed in the activity layout
                     TwistListFragment firstFragment = TwistListFragment.newInstance(twists, 1);
 

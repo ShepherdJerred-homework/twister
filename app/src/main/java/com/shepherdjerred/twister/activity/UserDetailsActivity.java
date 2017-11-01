@@ -49,7 +49,7 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
             }
 
             final TwisterApi twisterApi = new TwisterApi(getApplicationContext());
-            twisterApi.getUser(twist.getUsername(), new TwisterApi.onUserLoad() {
+            twisterApi.getUser(twist.getUsername(), new TwisterApi.onUserRequestFinish() {
                 @Override
                 public void onSuccess(User user) {
                     Log.d("GetUser", user.toString());

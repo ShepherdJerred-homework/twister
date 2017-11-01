@@ -1,7 +1,6 @@
 package com.shepherdjerred.twister.api;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -10,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.shepherdjerred.twister.database.TwisterDatabase;
 import com.shepherdjerred.twister.object.Twist;
 import com.shepherdjerred.twister.object.User;
 
@@ -29,12 +29,18 @@ public class TwisterApi {
 
     private static final DateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     private RequestQueue requestQueue;
+    private TwisterDatabase twisterDatabase;
 
     public TwisterApi(Context context) {
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        twisterDatabase = new TwisterDatabase(context, "cache", null, 1);
     }
 
-    public void getTwists(String username, final onTwistLoad onTwistLoad) {
+    public void addTwist(Twist twist) {
+        twisterDatabase.addTwist(twist);
+    }
+
+    public void getTwists(final String username, final onTwistRequestFinish onTwistRequestFinish) {
         String url = "http://jsonstub.com/twist/" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -54,7 +60,7 @@ public class TwisterApi {
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
                             }
-                            onTwistLoad.run(twists);
+                            onTwistRequestFinish.onSuccess(twists);
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
                         }
@@ -62,7 +68,8 @@ public class TwisterApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Volley", error.toString());
+                ArrayList<Twist> twists = twisterDatabase.getTwists(username);
+                onTwistRequestFinish.onSuccess(twists);
             }
         }) {
             @Override
@@ -80,7 +87,7 @@ public class TwisterApi {
     }
 
     // https://developer.android.com/training/volley/request.html
-    public void getTwists(final onTwistLoad onTwistLoad) {
+    public void getTwists(final onTwistRequestFinish onTwistRequestFinish) {
         String url = "http://jsonstub.com/twist/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -100,7 +107,8 @@ public class TwisterApi {
                                 Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
                                 twists.add(twist);
                             }
-                            onTwistLoad.run(twists);
+                            twisterDatabase.setTwists(twists);
+                            onTwistRequestFinish.onSuccess(twists);
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
                         }
@@ -108,7 +116,8 @@ public class TwisterApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Volley", error.toString());
+                ArrayList<Twist> twists = twisterDatabase.getTwists();
+                onTwistRequestFinish.onSuccess(twists);
             }
         }) {
             @Override
@@ -125,11 +134,7 @@ public class TwisterApi {
         requestQueue.add(request);
     }
 
-    public interface onTwistLoad {
-        void run(ArrayList<Twist> twists);
-    }
-
-    public void getUser(String username, final onUserLoad onUserLoad) {
+    public void getUser(String username, final onUserRequestFinish onUserRequestFinish) {
         String url = "http://jsonstub.com/user/" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -140,7 +145,7 @@ public class TwisterApi {
                             String username = jsonObject.getString("username");
                             String about = jsonObject.getString("about");
                             User user = new User(username, about);
-                            onUserLoad.onSuccess(user);
+                            onUserRequestFinish.onSuccess(user);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -159,7 +164,7 @@ public class TwisterApi {
                         errorMessage = String.valueOf(error.networkResponse.statusCode);
                     }
                 }
-                onUserLoad.onError(errorMessage);
+                onUserRequestFinish.onError(errorMessage);
             }
         }) {
             @Override
@@ -176,7 +181,10 @@ public class TwisterApi {
         requestQueue.add(request);
     }
 
-    public interface onUserLoad {
+    public interface onTwistRequestFinish {
+        void onSuccess(ArrayList<Twist> twists);
+    }
+    public interface onUserRequestFinish {
         void onSuccess(User user);
 
         void onError(String error);

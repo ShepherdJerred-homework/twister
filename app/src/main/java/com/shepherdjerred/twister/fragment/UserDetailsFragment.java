@@ -23,7 +23,6 @@ public class UserDetailsFragment extends Fragment {
     public UserDetailsFragment() {
     }
 
-    // TODO: Rename and change types and number of parameters
     public static UserDetailsFragment newInstance(User user) {
         UserDetailsFragment fragment = new UserDetailsFragment();
         Bundle args = new Bundle();
