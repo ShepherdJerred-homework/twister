@@ -9,9 +9,6 @@ Android app similar to Twitter with a mock backend
 
 ### Contributions
 Noah Kinslow (50%)
-* User login
-    * LoginActivity, LoginFragment
-    * Show error message if API returns error
 * Add Twist
     * AddTwistActivity, AddTwistFragment
     * Disable posting if textbox doesn't have one non-whitespace character or
@@ -38,6 +35,9 @@ Jerred Shepherd (50%)
 * User Details activity
     * DetailActivity, DetailFragment
     * Recycler view
+* User login
+    * LoginActivity, LoginFragment
+    * Show error message if API returns error
 * Database/cache
     * TwisterDatabase, TwisterDatabaseHelper
 * Image caching (Extra credit)
