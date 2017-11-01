@@ -1,6 +1,7 @@
 package com.shepherdjerred.twister.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -14,14 +15,6 @@ import com.shepherdjerred.twister.R;
 import com.shepherdjerred.twister.api.TwisterApi;
 import com.shepherdjerred.twister.object.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoginFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
@@ -29,32 +22,13 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -90,6 +64,11 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onSuccess(User user) {
                             if (user != null) {
+                                SharedPreferences sharedPreferences = getContext().getSharedPreferences(
+                                        "com.shepherdjerred.twister", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+                                sharedPreferencesEditor.putString("username", user.getUsername());
+                                sharedPreferencesEditor.apply();
                                 mListener.OnLogin(user);
                             }
                         }
