@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
                 if (mListener != null) {
                     TwisterApi twisterApi = new TwisterApi(getContext());
 
-                    twisterApi.getUser(username, new TwisterApi.onUserLoad() {
+                    twisterApi.getUser(username, new TwisterApi.onUserRequestFinish() {
                         @Override
                         public void onSuccess(User user) {
                             if (user != null) {
@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
                                 SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
                                 sharedPreferencesEditor.putString("username", user.getUsername());
                                 sharedPreferencesEditor.apply();
-                                mListener.OnLogin(user);
+                                mListener.onLogin(user);
                             }
                         }
 
@@ -103,6 +103,6 @@ public class LoginFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void OnLogin(User user);
+        void onLogin(User user);
     }
 }

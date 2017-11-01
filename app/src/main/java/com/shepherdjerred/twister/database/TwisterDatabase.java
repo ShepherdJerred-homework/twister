@@ -9,6 +9,7 @@ import com.shepherdjerred.twister.object.Twist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 // https://gist.github.com/mikeplate/9173040
 // https://stackoverflow.com/questions/433392/how-do-i-use-prepared-statements-in-sqlite-in-android
@@ -22,7 +23,7 @@ public class TwisterDatabase {
 
     public void setTwists(List<Twist> twists) {
         for (Twist twist : twists) {
-            // TODO insert into database
+            addTwist(twist);
         }
     }
 
@@ -30,22 +31,42 @@ public class TwisterDatabase {
         SQLiteDatabase database = twisterDatabaseHelper.getReadableDatabase();
 
         String table = "twist";
-        String[] columnsToReturn = { "id", "username", "message", "timestamp" };
+        String[] columnsToReturn = {"id", "username", "message", "timestamp"};
 
         Cursor cursor = database.query(table, columnsToReturn, null, null, null, null, null);
 
-        // TODO go through selected rows
+        ArrayList<Twist> twists = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String username = cursor.getString(cursor.getColumnIndex("username"));
+            String message = cursor.getString(cursor.getColumnIndex("message"));
+            Date timestamp = new Date(cursor.getLong(cursor.getColumnIndex("timestamp")));
+            Twist twist = new Twist(id, username, message, timestamp);
+            twists.add(twist);
+        }
+        return twists;
     }
 
     public ArrayList<Twist> getTwists(String username) {
         SQLiteDatabase database = twisterDatabaseHelper.getReadableDatabase();
 
         String table = "twist";
-        String[] columnsToReturn = { "id", "username", "message", "timestamp" };
+        String[] columnsToReturn = {"id", "message", "timestamp"};
+        String selection = "username = ?";
+        String[] selectionArgs = {username};
+        String orderBy = "timestamp";
 
-        Cursor cursor = database.query(table, columnsToReturn, null, null, null, null, null);
+        Cursor cursor = database.query(table, columnsToReturn, selection, selectionArgs, null, null, orderBy);
 
-        // TODO go through selected rows
+        ArrayList<Twist> twists = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String message = cursor.getString(cursor.getColumnIndex("message"));
+            Date timestamp = new Date(cursor.getLong(cursor.getColumnIndex("timestamp")));
+            Twist twist = new Twist(id, username, message, timestamp);
+            twists.add(twist);
+        }
+        return twists;
     }
 
     public void addTwist(Twist twist) {
