@@ -8,9 +8,6 @@ Android app similar to Twitter with a mock backend
 * None
 
 ### TODO
-* User login
-    * Skip login screen if user is saved in preferences
-    * Remove preference on logout
 * Twist List
     * Verify that time is relative on Twist List
     * Twist searching
@@ -20,7 +17,6 @@ Android app similar to Twitter with a mock backend
     * Add to database
 * User Details
     * Show Twists for user
-* Database
 
 ### Contributions
 Noah Kinslow (50%)
