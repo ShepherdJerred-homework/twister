@@ -34,6 +34,51 @@ public class TwisterApi {
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
+    public void getTwists(String username, final onTwistLoad onTwistLoad) {
+        String url = "http://jsonstub.com/twist/" + username;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        ArrayList<Twist> twists = new ArrayList<>();
+                        try {
+                            JSONArray twistJsonArray = jsonObject.getJSONArray("twists");
+                            for (int i = 0; i < twistJsonArray.length(); i++) {
+                                JSONObject twistJsonObject = twistJsonArray.getJSONObject(i);
+                                int twistId = twistJsonObject.getInt("id");
+                                String twistUsername = twistJsonObject.getString("username");
+                                String twistMessage = twistJsonObject.getString("message");
+                                String twistTimestampString = twistJsonObject.getString("timestamp");
+                                Date twistTimestamp = JSON_DATE_FORMAT.parse(twistTimestampString);
+                                Twist twist = new Twist(twistId, twistUsername, twistMessage, twistTimestamp);
+                                twists.add(twist);
+                            }
+                            onTwistLoad.run(twists);
+                        } catch (JSONException | ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Volley", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("JsonStub-User-Key", "edbc267a-f880-4dec-8dec-727cccc27e5d");
+                params.put("JsonStub-Project-Key", "40e26003-fc1b-40f3-9ae4-bfab71e6d186");
+
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
     // https://developer.android.com/training/volley/request.html
     public void getTwists(final onTwistLoad onTwistLoad) {
         String url = "http://jsonstub.com/twist/";
