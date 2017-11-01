@@ -9,7 +9,6 @@ Android app similar to Twitter with a mock backend
 
 ### TODO
 * Twist List
-    * Verify that time is relative on Twist List
     * Twist searching
 * Add Twist
     * Limit to 150 characters
