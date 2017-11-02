@@ -41,3 +41,6 @@ Jerred Shepherd (100%)
 * Database/cache
     * TwisterDatabase, TwisterDatabaseHelper
 * Image caching (Extra credit)
+
+Screenshot
+![Screenshot of Twister](https://i.imgur.com/uA8eqjt.png)
