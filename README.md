@@ -2,24 +2,16 @@
 Android app similar to Twitter with a mock backend
 
 ### Known bugs
-* None
+* Twist searching not implemented
+* User details doesn't show properly
+    * User about and profile image are covered by Twist list
+    * Twist list is overlapped by action bar
 
 ### Extra credit
-* None
-
-### TODO
-* Twist List
-    * Twist searching
-* Add Twist
-    * Limit to 150 characters
-    * Require one non-whitespace character
-    * Add to database
+* Image caching
 
 ### Contributions
-Noah Kinslow (50%)
-* Link clicking in Twists (Extra credit)
-* Regex highlighting for Twist search (Extra credit)
-* Landscape support (Extra credit)
+Noah Kinslow (0%)
 
 Jerred Shepherd (50%)
 * App icon
