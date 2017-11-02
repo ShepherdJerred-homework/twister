@@ -13,7 +13,7 @@ Android app similar to Twitter with a mock backend
 ### Contributions
 Noah Kinslow (0%)
 
-Jerred Shepherd (50%)
+Jerred Shepherd (100%)
 * App icon
 * DataFetcher
 * User login
