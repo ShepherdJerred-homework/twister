@@ -36,14 +36,15 @@ public class AddTwistFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_twist, container, false);
 
-        TextView characterCountTextView = view.findViewById(R.id.add_twist_char_count);
+        final TextView characterCountTextView = view.findViewById(R.id.add_twist_char_count);
         final EditText twistMessageTextView = view.findViewById(R.id.add_twist_text);
         Button addTwistButton = view.findViewById(R.id.add_twist_button);
 
         addTwistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (twistMessageTextView.getText().length() <= 150) {
+                // https://stackoverflow.com/questions/3247067/how-do-i-check-that-a-java-string-is-not-all-whitespaces
+                if (twistMessageTextView.getText().length() <= 150 && twistMessageTextView.getText().length() > 0 && twistMessageTextView.getText().toString().trim().length() > 0) {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences(
                             "com.shepherdjerred.twister", Context.MODE_PRIVATE);
 
@@ -69,7 +70,7 @@ public class AddTwistFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                twistMessageTextView.setText(charSequence.length() + "/150");
+                characterCountTextView.setText(charSequence.length() + "/150");
             }
 
             @Override
