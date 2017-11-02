@@ -3,6 +3,9 @@ Android app similar to Twitter with a mock backend
 
 ### Known bugs
 * Twist searching not implemented
+* User details doesn't show properly
+    * User about and profile image are covered by Twist list
+    * Twist list is overlapped by action bar
 
 ### Extra credit
 * Image caching
